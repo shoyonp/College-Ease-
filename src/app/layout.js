@@ -22,7 +22,21 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* navigation bar */}
+        <nav>
+          <ul>
+            <li>Home</li>
+            <li>Colleges</li>
+            <li>Admission</li>
+            <li>My College</li>
+          </ul>
+        </nav>
+        {/* main content */}
+        <main className="h-screen">{children}</main>
+        {/* footer */}
+        <footer className="bg-gray-100 text-center p-4 text-black">
+          College of Engineering and Technology, University of Dar es Salaam
+        </footer>
       </body>
     </html>
   );
