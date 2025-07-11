@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         {/* navigation bar */}
         <Navbar />
         {/* main content */}
-        <main className="h-screen h-max-[600px] place-content-center place-items-center">
+        <main className='min-h-[calc(100vh-100px)]'>
           {children}
         </main>
         {/* footer */}
