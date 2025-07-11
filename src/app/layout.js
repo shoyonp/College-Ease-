@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,20 +25,13 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* navigation bar */}
-        <nav>
-          <ul>
-            <li>Home</li>
-            <li>Colleges</li>
-            <li>Admission</li>
-            <li>My College</li>
-          </ul>
-        </nav>
+        <Navbar />
         {/* main content */}
-        <main className="h-screen">{children}</main>
+        <main className="h-screen h-max-[600px] place-content-center place-items-center">
+          {children}
+        </main>
         {/* footer */}
-        <footer className="bg-gray-100 text-center p-4 text-black">
-          College of Engineering and Technology, University of Dar es Salaam
-        </footer>
+        <Footer />
       </body>
     </html>
   );
