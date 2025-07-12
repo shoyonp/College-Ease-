@@ -1,12 +1,11 @@
 "use client";
-import { AuthContext } from "@/app/(providers)/AuthProvider";
+import useAuth from "@/app/(hooks)/useAuth";
 import SocialLogin from "@/app/components/SocialLogin";
 import Link from "next/link";
-import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser } = useAuth()
   const {
     register,
     handleSubmit,
