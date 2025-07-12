@@ -1,9 +1,12 @@
 "use client";
+import { AuthContext } from "@/app/(providers)/AuthProvider";
 import SocialLogin from "@/app/components/SocialLogin";
 import Link from "next/link";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
+  const { signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -11,6 +14,10 @@ const page = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+    signIn(data.email, data.password).then((result) => {
+      const user = result.user;
+      console.log("User signed in:", user);
+    });
     console.log(data);
   };
   return (

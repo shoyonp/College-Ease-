@@ -1,10 +1,12 @@
 "use client";
+import { AuthContext } from "@/app/(providers)/AuthProvider";
 import SocialLogin from "@/app/components/SocialLogin";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
+  const { createUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -12,7 +14,11 @@ const page = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const user = result.user;
+      console.log("User created:", user);
+    });
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
