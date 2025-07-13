@@ -1,24 +1,35 @@
 "use client";
 import useAuth from "@/app/(hooks)/useAuth";
+import { AuthContext } from "@/app/(providers)/AuthProvider";
 import SocialLogin from "@/app/components/SocialLogin";
 import Link from "next/link";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
-  const { signIn } = useAuth();
+  const { signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    signIn(data.email, data.password).then((result) => {
-      const user = result.user;
-      console.log("User signed in:", user);
-    });
-    console.log(data);
-  };
+  const onSubmit = async (data) => {
+  try {
+    const result = await signIn(data.email, data.password);
+    const user = result.user;
+    console.log("User signed in:", user);
+
+    // Wait a moment for `onAuthStateChanged()` to trigger
+    setTimeout(() => {
+      alert("Login successful");
+    }, 500); // Optional delay
+
+    reset();
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+};
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">

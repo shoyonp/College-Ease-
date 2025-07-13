@@ -1,11 +1,13 @@
 "use client";
 import useAuth from "@/app/(hooks)/useAuth";
+import { AuthContext } from "@/app/(providers)/AuthProvider";
 import SocialLogin from "@/app/components/SocialLogin";
 import Link from "next/link";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
-  const { createUser } = useAuth()
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -13,10 +15,18 @@ const page = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
       console.log("User created:", user);
+      // Update user profile
+      updateUserProfile(data.name, data.image)
+        .then(() => {
+          console.log("User profile updated");
+          alert("Registration successful");
+          reset();
+        })
+        .catch((error) => console.log("Error updating profile:", error));
     });
   };
   return (
@@ -48,7 +58,7 @@ const page = () => {
                 <span className="label-text">Upload Photo</span>
               </label>
               <input
-                type="file"
+                type="url"
                 accept="image/*"
                 {...register("image", { required: true })}
                 className="file-input file-input-bordered"
