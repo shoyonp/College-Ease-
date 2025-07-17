@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 const ClientLayout = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -14,8 +18,10 @@ const ClientLayout = ({ children }) => {
 
   return (
     <>
-      <Navbar />
-      {children}
+      <QueryClientProvider client={queryClient}>
+        <Navbar />
+        {children}
+      </QueryClientProvider>
     </>
   );
 };

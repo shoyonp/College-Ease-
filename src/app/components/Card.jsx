@@ -1,13 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
+import useAuth from "../(hooks)/useAuth";
 
 const Card = ({ college }) => {
   const router = useRouter();
-  const isLoggedIn = true;
+  const {user} = useAuth()
 
   const handleDetailsClick = () => {
-    if (isLoggedIn) {
-      router.push(`/colleges/${college.id}`);
+    if (user && user.email) {
+      router.push(`/colleges/${college?._id}`);
     } else {
       alert("Please log in to view details.");
     }

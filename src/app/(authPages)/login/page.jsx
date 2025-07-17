@@ -1,13 +1,11 @@
 "use client";
 import useAuth from "@/app/(hooks)/useAuth";
-import { AuthContext } from "@/app/(providers)/AuthProvider";
 import SocialLogin from "@/app/components/SocialLogin";
 import Link from "next/link";
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuth();
   const {
     register,
     handleSubmit,
@@ -15,21 +13,15 @@ const page = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-  try {
-    const result = await signIn(data.email, data.password);
-    const user = result.user;
-    console.log("User signed in:", user);
-
-    // Wait a moment for `onAuthStateChanged()` to trigger
-    setTimeout(() => {
-      alert("Login successful");
-    }, 500); // Optional delay
-
-    reset();
-  } catch (error) {
-    console.error("Login error:", error);
-  }
-};
+    try {
+      const result = await signIn(data.email, data.password);
+      const user = result.user;
+      console.log("User signed in:", user);
+      reset();
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -108,4 +100,4 @@ const page = () => {
   );
 };
 
-export default page;
+// export default page;
